@@ -12,7 +12,7 @@ def main():
     
     
     
-    str = '102345678'
+    str = '321645780'
     utility_obj = ut.Util()
     
     board, blank = utility_obj.get_board(str)
