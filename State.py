@@ -37,8 +37,8 @@ class State():
         for child in self.children:
             child.print()       
 
-    def __eq__(self, other): 
-        return self.board == other.board
+    # def __eq__(self, other): 
+    #     return self.board == other.board
         
             
     def get_children(self):
