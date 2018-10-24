@@ -19,4 +19,18 @@ class Util:
         return board, blank_position
 
 
+     def index_2d(self, board, search):
+        for i in range (3):
+            for j in range (3):
+                if board[i][j] == search:
+                    return (i, j)
+        """   
+        for i, e in enumerate(board):
+            try:
+                return i, e.index(search)
+            except ValueError:
+                pass
+            raise ValueError("{} is not in list".format(repr(search)))
+        """
+       
 

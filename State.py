@@ -6,7 +6,6 @@ Created on Sat Oct 20 11:47:38 2018
 """
 #from enum import Enum
 
-import math
 
 class Actions :
     UP = 0
@@ -66,33 +65,8 @@ class State():
         
     # define goal_state global variable
     def test_goal(self,goal):
-       return self.board == goal 
-
-
-
-    def calculate_manhattan_distance(self,goal_board):
-        distance = 0 
         for i in range(3):
-            for j in range (3):  
-                position = index_2d(self.board,goal_board[i][j])
-                distance = distance + (abs(position[0]-i) + abs (position[1]-j))
-        return distance
-        
-    def calculate_euclidean_distance(self,goal_board):
-        distance = 0 
-        for i in range(3):
-            for j in range (3):  
-                position = index_2d(self.board,goal_board[i][j])
-                distance = distance + math.sqrt((position[0]-i)**2 + (position[1]-j)**2)
-        return distance 
-
-
-def index_2d(board, search):
-    for i, e in enumerate(board):
-        try:
-            return i, e.index(search)
-        except ValueError:
-            pass
-    raise ValueError("{} is not in list".format(repr(search)))
-    
-       
+            for j in range(3):
+                if self.board[i][j] != goal[i][j]:
+                    return False
+        return True 

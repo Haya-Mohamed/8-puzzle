@@ -4,91 +4,95 @@ Created on Sat Oct 20 14:18:24 2018
 
 @author: HRY
 """
-
-import State as st
 import bisect
-import A_State as ast
+
 class Search_Agents:
     
+    goal = [['0','1','2'],['3','4','5'],['6','7','8']]
     # declare global  variable goal :
     #state : initial state
     def BFS(self,state):
-        #to be changed later
-        goal = [['0','1','2'],['3','4','5'],['6','7','8']]
+        #to be changed later 
         frontier = []
         frontier.append(state)
         explored = []         
         while len(frontier) > 0:
-            current = frontier.pop(len(frontier)-1)
+            current = frontier.pop(0)
             current.get_children()
             explored.append(current)
-            if st.State.test_goal(current,goal):
+            if current.test_goal(self.goal):
                 print("Total cost is {} , depth = {}".format(current.cost,current.cost))
-                return state
+                return current
             
             #loop for state's children
             for child in current.children:
-                if child not in frontier and child not in explored:
-                    frontier.insert(0,child)
+                if isVisited(child, explored) or isVisiting(child, frontier):
+                    continue
+                frontier.append(child)
                
     
     def DFS(self, state):
         frontier = []
         explored = []
-        goal = [['0','1','2'],['3','4','5'],['6','7','8']]
+    
         frontier.append(state)
         depth = 0
         while len(frontier) > 0:
             current = frontier.pop()
             current.print()
             explored.append(current)
-            if current.test_goal(goal):
+            if current.test_goal(self.goal):
                 print(depth)
-                return 
+                return current
 
             not_leaf = False
             current.get_children()
 
             for child in reversed(current.children):
-                if child not in frontier and child not in explored:
-                    frontier.append(child)
-                    not_leaf = True
+                if isVisited(child, explored) or isVisiting(child, frontier):
+                    continue
+                frontier.append(child)
+                not_leaf = True
 
             if not_leaf:
                 depth = depth + 1
             else: 
                 depth = depth - 1
         
-            
+
         
-        
-        
-        
-    def A(self,state):
+    def A(self, state, heuristic):
         
         frontier = []
         explored = []
         frontier.append(state)
-        goal = [['0','1','2'],['3','4','5'],['6','7','8']]
+                
         while len(frontier) > 0:
-            current = frontier.pop(0)
+            current = frontier.pop()
             explored.append(current)
-
-            if current.test_goal(goal):
-                #print
-                return 
+            
+            if current.test_goal(self.goal):
+                return current 
             current.get_children()
             for child in current.children:
-                if child not in frontier and child not in explored:
-                    frontier.append(child)
-                    not_leaf = True
+                if isVisited(child, explored):
+                    continue
+                node = isVisiting(child, frontier)
+                if node:
+                    if node.a_cost > child.a_cost:
+                        node.a_cost = child.a_cost
+                else:
+                    bisect.insort(frontier, child)
+ 
 
-            if not_leaf:
-                depth = depth + 1
-            else: 
-                depth = depth - 1
-
-
+def isVisited(state, explored):
+    for s in explored:
+        if s.board == state.board:
+            return True
+    return False   
     
-    
-        
+def isVisiting(state, frontier):
+    for s in frontier:
+        if s.board == state.board:
+            return s
+    return None
