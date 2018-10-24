@@ -7,10 +7,10 @@ Created on Sat Oct 20 14:18:24 2018
 import bisect
 
 class Search_Agents:
-    
-    goal = [['0','1','2'],['3','4','5'],['6','7','8']]
     # declare global  variable goal :
     #state : initial state
+    goal = [['0','1','2'],['3','4','5'],['6','7','8']]
+    
     def BFS(self,state):
         #to be changed later 
         frontier = []
@@ -21,8 +21,7 @@ class Search_Agents:
             current.get_children()
             explored.append(current)
             if current.test_goal(self.goal):
-                print("Total cost is {} , depth = {}".format(current.cost,current.cost))
-                return current
+                return current, explored
             
             #loop for state's children
             for child in current.children:
@@ -42,8 +41,7 @@ class Search_Agents:
             current.print()
             explored.append(current)
             if current.test_goal(self.goal):
-                print(depth)
-                return current
+                return current, explored
 
             not_leaf = False
             current.get_children()
@@ -61,7 +59,7 @@ class Search_Agents:
         
 
         
-    def A(self, state, heuristic):
+    def A(self, state):
         
         frontier = []
         explored = []
@@ -72,7 +70,8 @@ class Search_Agents:
             explored.append(current)
             
             if current.test_goal(self.goal):
-                return current 
+                return current, explored 
+            
             current.get_children()
             for child in current.children:
                 if isVisited(child, explored):

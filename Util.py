@@ -2,7 +2,7 @@
 """
 Created on Sat Oct 20 14:03:53 2018
 
-@author: User
+@author: HRY
 """
 
 class Util:
@@ -24,13 +24,11 @@ class Util:
             for j in range (3):
                 if board[i][j] == search:
                     return (i, j)
-        """   
-        for i, e in enumerate(board):
-            try:
-                return i, e.index(search)
-            except ValueError:
-                pass
-            raise ValueError("{} is not in list".format(repr(search)))
-        """
        
 
+     def back_track(self, state):
+        list = [] 
+        while state.parent:
+            list.append(state)
+            state = state.parent
+        return list

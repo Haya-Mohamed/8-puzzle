@@ -2,7 +2,7 @@
 """
 Created on Sat Oct 20 11:47:38 2018
 
-@author: Haya Rowan Youssef
+@author: HRY
 """
 #from enum import Enum
 
@@ -23,7 +23,8 @@ class State():
         self.cost = cost
         self.blank_position = blank
         self.action = action
-        self.children = [] 
+        self.children = []
+        self.parent = None
         # self.get_children()
                  
     def print(self):
@@ -45,6 +46,8 @@ class State():
         right = (self.blank_position[0], self.blank_position[1] + 1)
         up = (self.blank_position[0] - 1, self.blank_position[1])
         down = (self.blank_position[0] + 1, self.blank_position[1])
+        
+        
         if left[1] in range(3):
             self.children .append (self.move(Actions.LEFT, left))
         if right[1] in range(3):
@@ -60,6 +63,7 @@ class State():
         new_board[new_blank_position[0]][new_blank_position[1]] = '0'
         new_board [self.blank_position[0]][self.blank_position[1]] = self.board [new_blank_position[0]][new_blank_position[1]] 
         child = State(new_board, self.cost + 1, action, new_blank_position)
+        child.parent = self
         return child
         
         
