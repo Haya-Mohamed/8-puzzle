@@ -18,11 +18,12 @@ class Search_Agents:
         explored = []         
         while len(frontier) > 0:
             current = frontier.pop(0)
-            current.get_children()
             explored.append(current)
+            
             if current.test_goal(self.goal):
                 return current, explored
             
+            current.get_children()
             #loop for state's children
             for child in current.children:
                 if isVisited(child, explored) or isVisiting(child, frontier):
@@ -35,28 +36,19 @@ class Search_Agents:
         explored = []
     
         frontier.append(state)
-        depth = 0
         while len(frontier) > 0:
             current = frontier.pop()
-            current.print()
             explored.append(current)
+            
             if current.test_goal(self.goal):
                 return current, explored
 
-            not_leaf = False
             current.get_children()
 
             for child in reversed(current.children):
                 if isVisited(child, explored) or isVisiting(child, frontier):
                     continue
                 frontier.append(child)
-                not_leaf = True
-
-            if not_leaf:
-                depth = depth + 1
-            else: 
-                depth = depth - 1
-        
 
         
     def A(self, state):
@@ -64,34 +56,30 @@ class Search_Agents:
         frontier = []
         explored = []
         frontier.append(state)
-                
+        
         while len(frontier) > 0:
-            current = frontier.pop()
-            explored.append(current)
+            current = frontier.pop(0)
+            if not isVisited(current, explored):
+                explored.append(current)
             
-            if current.test_goal(self.goal):
-                return current, explored 
+                if current.test_goal(self.goal):
+                    return current, explored 
             
-            current.get_children()
-            for child in current.children:
-                if isVisited(child, explored):
-                    continue
-                node = isVisiting(child, frontier)
-                if node:
-                    if node.a_cost > child.a_cost:
-                        node.a_cost = child.a_cost
-                else:
+                current.get_children()
+                for child in current.children:
+                    if isVisited(child, explored):
+                        continue
                     bisect.insort(frontier, child)
- 
+                    
 
 def isVisited(state, explored):
-    for s in explored:
-        if s.board == state.board:
-            return True
+    if state in explored:
+        return True
+    
     return False   
     
 def isVisiting(state, frontier):
-    for s in frontier:
-        if s.board == state.board:
-            return s
-    return None
+    if state in frontier:
+        return True
+   
+    return False

@@ -26,6 +26,13 @@ class State():
         self.children = []
         self.parent = None
         # self.get_children()
+        
+        
+    def __eq__(self, other): 
+        return self.board == other.board
+    
+    def __hash__(self):
+        return hash(str(self.board))
                  
     def print(self):
          for i in range(3):
@@ -69,8 +76,6 @@ class State():
         
     # define goal_state global variable
     def test_goal(self,goal):
-        for i in range(3):
-            for j in range(3):
-                if self.board[i][j] != goal[i][j]:
-                    return False
-        return True 
+        if self.board == goal:
+            return True
+        return False

@@ -31,7 +31,7 @@ def init(init_board, Strategy):
     execution_time = time.process_time() - start_time
     
     path = utility_obj.back_track(state)
-    """
+    
     for s in reversed(path):
         s.print()
         print('----------')
@@ -40,13 +40,13 @@ def init(init_board, Strategy):
     for s in explored:
         s.print()
         print('--------------')
-        
+    """ 
     print('Depth = ', len(path))
     print('Execution Time = ', execution_time)
         
      
 def main():
-    init('142658730', 'manhattan')
+    init('142658730', 'dfs')
 
 if __name__ == '__main__':
     main()
