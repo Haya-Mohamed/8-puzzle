@@ -19,11 +19,11 @@ class Search_Agents:
         while len(frontier) > 0:
             current = frontier.pop(0)
             
-            if current.test_goal(self.goal):
-                return current, explored
-            
             if not isVisited(current, explored):
+            
                 explored.add(current)
+                if current.test_goal(self.goal):
+                    return current, explored
                 current.get_children()
             
                 for child in current.children:
@@ -40,13 +40,14 @@ class Search_Agents:
         while len(frontier) > 0:
             current = frontier.pop()
             
-            if current.test_goal(self.goal):
-                return current, explored
-            
             if not isVisited(current, explored):
+                
+                
                 explored.add(current)
+                if current.test_goal(self.goal):
+                    return current, explored
                 current.get_children()
-
+                
                 for child in reversed(current.children):
                     if isVisited(child, explored):
                         continue

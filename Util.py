@@ -19,17 +19,18 @@ class Util:
                 index = index + 1
         return board, blank_position
 
-
-     def index_2d(self, board, search):
-        for i in range (3):
-            for j in range (3):
-                if board[i][j] == search:
-                    return (i, j)
-       
-
      def back_track(self, state):
         list = [] 
         while state.parent:
             list.append(St.Actions(state.action))
             state = state.parent
         return list
+
+
+def index_2d(board, search):
+        for i, e in enumerate(board):
+            try:
+                return i, e.index(search)
+            except ValueError:
+                pass
+        raise ValueError("{} is not in list".format(repr(search)))
