@@ -15,46 +15,48 @@ class Search_Agents:
         #to be changed later 
         frontier = []
         frontier.append(state)
-        explored = []         
+        explored = set()         
         while len(frontier) > 0:
             current = frontier.pop(0)
-            explored.append(current)
             
             if current.test_goal(self.goal):
                 return current, explored
             
-            current.get_children()
-            #loop for state's children
-            for child in current.children:
-                if isVisited(child, explored) or isVisiting(child, frontier):
-                    continue
-                frontier.append(child)
+            if not isVisited(current, explored):
+                explored.add(current)
+                current.get_children()
+            
+                for child in current.children:
+                    if isVisited(child, explored):
+                        continue
+                    frontier.append(child)
                
     
     def DFS(self, state):
         frontier = []
-        explored = []
+        explored = set()
     
         frontier.append(state)
         while len(frontier) > 0:
             current = frontier.pop()
-            explored.append(current)
             
             if current.test_goal(self.goal):
                 return current, explored
+            
+            if not isVisited(current, explored):
+                explored.add(current)
+                current.get_children()
 
-            current.get_children()
-
-            for child in reversed(current.children):
-                if isVisited(child, explored) or isVisiting(child, frontier):
-                    continue
-                frontier.append(child)
+                for child in reversed(current.children):
+                    if isVisited(child, explored):
+                        continue
+                    frontier.append(child)
 
         
     def A(self, state):
         
         frontier = []
-        explored = []
+        explored = set()
         frontier.append(state)
         
         while len(frontier) > 0:

@@ -32,10 +32,11 @@ def init(init_board, Strategy):
     
     path = utility_obj.back_track(state)
     
+    """
     for s in reversed(path):
         s.print()
         print('----------')
-    """
+    
     
     for s in explored:
         s.print()
@@ -46,7 +47,7 @@ def init(init_board, Strategy):
         
      
 def main():
-    init('142658730', 'dfs')
+    init('102754863', 'dfs')
 
 if __name__ == '__main__':
     main()
