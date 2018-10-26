@@ -32,22 +32,23 @@ def init(init_board, Strategy):
     
     path = utility_obj.back_track(state)
     
-    """
+    print('Path:')
     for s in reversed(path):
-        s.print()
-        print('----------')
-    
+        print(s)
+    """
     
     for s in explored:
         s.print()
         print('--------------')
     """ 
+    print('# of Explored = ', len(explored))
     print('Depth = ', len(path))
+    print('Cost = ', len(path))
     print('Execution Time = ', execution_time)
         
      
 def main():
-    init('102754863', 'dfs')
+    init('102754863', 'manhattan')
 
 if __name__ == '__main__':
     main()

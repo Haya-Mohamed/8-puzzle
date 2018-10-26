@@ -6,8 +6,9 @@ Created on Sat Oct 20 11:47:38 2018
 """
 #from enum import Enum
 
+import enum
 
-class Actions :
+class Actions(enum.Enum) :
     UP = 0
     LEFT = 1
     RIGHT = 2

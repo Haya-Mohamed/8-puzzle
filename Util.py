@@ -4,6 +4,7 @@ Created on Sat Oct 20 14:03:53 2018
 
 @author: HRY
 """
+import State as St
 
 class Util:
      def get_board(self,config):
@@ -29,6 +30,6 @@ class Util:
      def back_track(self, state):
         list = [] 
         while state.parent:
-            list.append(state)
+            list.append(St.Actions(state.action))
             state = state.parent
         return list

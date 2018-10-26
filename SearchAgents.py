@@ -62,7 +62,7 @@ class Search_Agents:
         while len(frontier) > 0:
             current = frontier.pop(0)
             if not isVisited(current, explored):
-                explored.append(current)
+                explored.add(current)
             
                 if current.test_goal(self.goal):
                     return current, explored 
