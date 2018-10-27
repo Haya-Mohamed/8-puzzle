@@ -7,20 +7,23 @@ Created on Sat Oct 20 14:18:24 2018
 import bisect
 
 class Search_Agents:
-    # declare global  variable goal :
-    #state : initial state
+    """
+    Defines the 3 search agents used to solve the 8-puzzle
+    """
     goal = [['0','1','2'],['3','4','5'],['6','7','8']]
     
     def BFS(self,state):
-        #to be changed later 
+        """
+        Implements BFS algorithm for 8-puzzle
+        """
         frontier = []
         frontier.append(state)
         explored = set()         
         while len(frontier) > 0:
             current = frontier.pop(0)
-            
+
             if not isVisited(current, explored):
-            
+
                 explored.add(current)
                 if current.test_goal(self.goal):
                     return current, explored
@@ -33,6 +36,9 @@ class Search_Agents:
                
     
     def DFS(self, state):
+        """
+        Implements DFS algorithm for 8-puzzle
+        """
         frontier = []
         explored = set()
     
@@ -41,7 +47,6 @@ class Search_Agents:
             current = frontier.pop()
             
             if not isVisited(current, explored):
-                
                 
                 explored.add(current)
                 if current.test_goal(self.goal):
@@ -55,6 +60,9 @@ class Search_Agents:
 
         
     def A(self, state):
+        """
+        Implements A* algorithm for 8-puzzle
+        """
         
         frontier = []
         explored = set()
@@ -76,13 +84,17 @@ class Search_Agents:
                     
 
 def isVisited(state, explored):
+    """
+    Searches for the state in explored set
+    """
     if state in explored:
         return True
-    
     return False   
     
 def isVisiting(state, frontier):
+    """
+    Searches for the state in frontier list
+    """
     if state in frontier:
         return True
-   
     return False

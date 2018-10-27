@@ -2,6 +2,8 @@
 """
 Created on Sat Oct 20 14:06:34 2018
 
+Main Script for 8-puzzle
+
 @author: HRY
 """
 import State as st
@@ -11,6 +13,9 @@ import SearchAgents as agent
 import time
 
 def init(init_board, Strategy):
+    """
+    Initializes the board and strategy to solve 8-puzzle
+    """
     utility_obj = ut.Util()
     board, blank = utility_obj.get_board(init_board)
     
@@ -35,12 +40,7 @@ def init(init_board, Strategy):
     print('Path:')
     for s in reversed(path):
         print(s)
-    """
-    
-    for s in explored:
-        s.print()
-        print('--------------')
-    """ 
+
     print('# of Explored = ', len(explored))
     print('Depth = ', len(path))
     print('Cost = ', len(path))
@@ -48,7 +48,7 @@ def init(init_board, Strategy):
         
      
 def main():
-    init('102754863', 'manhattan')
+    init('102754863', 'bfs')
 
 if __name__ == '__main__':
     main()
